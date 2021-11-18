@@ -5,7 +5,7 @@
 #include <stack>
 #include <map>
 #include <algorithm>
-
+//copilado con la version C++11
 using namespace std;
 
 struct Node;
@@ -33,18 +33,18 @@ struct grafo{
 	void BFS(Node* og);
 };
 
-void grafo::Grafo(){
+void grafo::Grafo(){//compljidad O(1)
 	head = NULL;
 }
 
-bool grafo::Empty(){
+bool grafo::Empty(){//complejidad O(n)
 	if (head==NULL){
 		return true;
 	}
 	return false;
 }
 
-Node* grafo::getNode(char letra){
+Node* grafo::getNode(char letra){//complejidad O(n)
 	Node* aux;
 	aux = head;
 	while (aux != NULL){
@@ -56,7 +56,7 @@ Node* grafo::getNode(char letra){
 	return NULL;
 }
 
-void grafo::insertNode(char _letra){
+void grafo::insertNode(char _letra){//complejidad O(n)
 	Node* nw = new Node;
 	nw->letra =_letra;
 	nw->next = NULL;
@@ -73,7 +73,7 @@ void grafo::insertNode(char _letra){
 	}
 }
 
-void grafo::insertEdge(Node* og, Node* dt){
+void grafo::insertEdge(Node* og, Node* dt){//complejidad O(n)
 	Edge* nw = new Edge;
 	nw->next = NULL;
 	nw->ady = NULL;
@@ -91,7 +91,7 @@ void grafo::insertEdge(Node* og, Node* dt){
 	}
 }
 
-void grafo::ListAdy(){
+void grafo::ListAdy(){//complejidad O(n)
 	Node *naux;
 	Edge *aaux;
 	naux = head;
@@ -107,7 +107,7 @@ void grafo::ListAdy(){
 	}
 }
 
-void grafo::BFS(Node* og){
+void grafo::BFS(Node* og){//complejidad O(n)^2
 	int flag,flag2;
 	Node* act;
 	queue<Node*> tail;
@@ -144,11 +144,11 @@ void grafo::BFS(Node* og){
 	}
 }
 
-bool ordenar(Node* a, Node* b){
+bool ordenar(Node* a, Node* b){//complejidad O(n)
 	return a->letra > b->letra;
 }
 
-void grafo::DFS(Node* og){
+void grafo::DFS(Node* og){//complejidad O(n)^2
 	int flag,flag2;
 	Node* act;
 	stack<Node*> pila;
