@@ -3,6 +3,8 @@
 #include <queue>
 #include <list>
 #include <stack>
+#include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -142,10 +144,15 @@ void grafo::BFS(Node* og){
 	}
 }
 
+bool ordenar(Node* a, Node* b){
+	return a->letra > b->letra;
+}
+
 void grafo::DFS(Node* og){
 	int flag,flag2;
 	Node* act;
 	stack<Node*> pila;
+	vector<Node*> vt;
 	list<Node*> lista;
 	list<Node*>::iterator i;
 	pila.push(og);
@@ -164,20 +171,16 @@ void grafo::DFS(Node* og){
 			Edge* aux;
 			aux = act->ady;
 			while (aux!=NULL){
-				flag2 = 0;
-				for (i = lista.begin(); i!= lista.end(); i++){
-					if(aux->ady == *i){
-						flag2 = 1;
-					}
-				}
-				if(flag2 == 0){
-					pila.push(aux->ady);
-				}
+				vt.push_back(aux->ady);
 				aux = aux->next;
 			}
+			sort(vt.begin(),vt.end(),ordenar);
+			for (Node* v : vt){
+				pila.push(v);	
+			}
+			vt.clear();
 		}
 	}
-	
 }
 
 int main(){
