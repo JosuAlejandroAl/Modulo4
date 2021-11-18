@@ -5,7 +5,7 @@
 #include <stack>
 #include <map>
 #include <algorithm>
-//copilado con la version C++11
+//Compilado con la version C++11
 using namespace std;
 
 struct Node;
@@ -33,7 +33,7 @@ struct grafo{
 	void BFS(Node* og);
 };
 
-void grafo::Grafo(){//compljidad O(1)
+void grafo::Grafo(){//complejidad O(1)
 	head = NULL;
 }
 
