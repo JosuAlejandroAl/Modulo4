@@ -1,12 +1,17 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <list>
+#include <stack>
+#include <map>
 using namespace std;
  
 class Graph {
-    int V;
+    int vert;
     list<int>* adj;
-    bool isCyclicUtil(int u, bool visited[], int parent);
+    bool Cycle(int u, bool visited[], int parent);
 public:
-    Graph(int V);
+    Graph(int vert);
     void addEdge(int u, int v);
     void addedge(int r, int s);
     bool isTree();
@@ -14,36 +19,36 @@ public:
 	void loadGraph(Graph &g,int m);
 };
  
-Graph::Graph(int V)
+Graph::Graph(int vert)//complejidad O(n)
 {
-    this->V = V;
-    adj = new list<int>[V];
+    this->vert = vert;
+    adj = new list<int>[vert];
 }
  
-void Graph::addEdge(int u, int v)
+void Graph::addEdge(int u, int v)//complejidad O(n)
 {
     adj[u].push_back(v);
 }
 
-void Graph::addedge(int r, int s)
+void Graph::addedge(int r, int s)//compljidad O(n)
 {
     adj[r].push_back(s);
     adj[s].push_back(r);
 }
 
-void Graph::topologicalSort()
+void Graph::topologicalSort()//complejidad de O ((V+E) log(V))
 {
 	vector <char> alfa= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-    vector<int> in_degree(V, 0);
+    vector<int> in_degree(vert, 0);
 	char a;
-    for (int u = 0; u < V; u++) {
+    for (int u = 0; u < vert; u++) {
         list<int>::iterator itr;
         for (itr = adj[u].begin();
              itr != adj[u].end(); itr++)
             in_degree[*itr]++;
     }
     queue<int> q;
-    for (int i = 0; i < V; i++)
+    for (int i = 0; i < vert; i++)
         if (in_degree[i] == 0)
             q.push(i);
     int cnt = 0;
@@ -59,8 +64,8 @@ void Graph::topologicalSort()
                 q.push(*itr);
         cnt++;
     }
-    if (cnt != V) {
-        cout << "There exists a cycle in the graph\n";
+    if (cnt != vert) {
+        cout << "No es un grafo\n";
         return;
     }
     for (int i = 1; i < top_order.size(); i++)
@@ -68,7 +73,7 @@ void Graph::topologicalSort()
     cout << endl;
 }
 
-bool Graph::isCyclicUtil(int r, bool visited[], int parent)
+bool Graph::Cycle(int r, bool visited[], int parent)//Complejidad O(n)
 {
     visited[r] = true;
     list<int>::iterator i;
@@ -76,7 +81,7 @@ bool Graph::isCyclicUtil(int r, bool visited[], int parent)
     {
         if (!visited[*i])
         {
-           if (isCyclicUtil(*i, visited, r))
+           if (Cycle(*i, visited, r))
               return true;
         }
         else if (*i != parent)
@@ -84,21 +89,21 @@ bool Graph::isCyclicUtil(int r, bool visited[], int parent)
     }
     return false;
 }
-bool Graph::isTree()
+bool Graph::isTree()//Complejidad O(n)
 {
-    bool *visited = new bool[V];
-    for (int i = 0; i < V; i++)
+    bool *visited = new bool[vert];
+    for (int i = 0; i < vert; i++)
         visited[i] = false;
-    if (isCyclicUtil(0, visited, -1))
+    if (Cycle(0, visited, -1))
              return false;
-    for (int s = 0; s < V; s++)
+    for (int s = 0; s < vert; s++)
         if (!visited[s])
            return false;
  
     return true;
 }
 
-void Graph::loadGraph(Graph &g,int m){
+void Graph::loadGraph(Graph &g,int m){//complejidad O(n)
 	vector <char> alfa= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 	char a, b;
 	int a1,b1;
